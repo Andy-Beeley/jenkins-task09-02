@@ -30,7 +30,7 @@ pipeline {
                     try {
                         sh "docker network create task2-network"
                     } catch (Exception e) {
-                        echo "Failed to create network"
+                        echo "Failed to create network again"
                     }
                 }
             }
