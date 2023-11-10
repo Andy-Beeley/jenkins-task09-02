@@ -50,9 +50,9 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker run -d --name mysql --network trio-task-network --mount type=volume,source=new-volume,target=/var/lib/mysql trio-task-mysql:5.7'
-                        sh 'docker run -d -e MYSQL_ROOT_PASSWORD=password --name flask-app --network trio-task-network trio-task-flask-app:latest'
-                        sh 'docker run -d --name nginx -p 80:80 --network trio-task-network --mount type=bind,source=$(pwd)/nginx/nginx.conf,target=/etc/nginx/nginx.conf nginx:latest'
+                        sh 'docker run -d --name mysql --network task2-network --mount type=volume,source=new-volume,target=/var/lib/mysql trio-task-mysql:5.7'
+                        sh 'docker run -d -e MYSQL_ROOT_PASSWORD=password --name flask-app --network task2-network trio-task-flask-app:latest'
+                        sh 'docker run -d --name nginx -p 80:80 --network task2-network --mount type=bind,source=$(pwd)/nginx/nginx.conf,target=/etc/nginx/nginx.conf nginx:latest'
                     } catch (Exception e) {
                         echo "Failed to run node app container"
                     }
