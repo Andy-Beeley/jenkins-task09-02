@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "docker volume create new-volume"
+                        sh "docker volume create task2-volume"
                     } catch (Exception e) {
                         echo "Failed to create volume"
                     }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker run -d --name mysql --network task2-network --mount type=volume,source=new-volume,target=/var/lib/mysql trio-task-mysql:5.7'
+                        sh 'docker run -d --name mysql --network task2-network --mount type=volume,source=task2-volume,target=/var/lib/mysql trio-task-mysql:5.7'
                         sh 'docker run -d -e MYSQL_ROOT_PASSWORD=password --name flask-app --network task2-network trio-task-flask-app:latest'
                         sh 'docker run -d --name nginx -p 80:80 --network task2-network --mount type=bind,source=$(pwd)/nginx/nginx.conf,target=/etc/nginx/nginx.conf nginx:latest'
                     } catch (Exception e) {
